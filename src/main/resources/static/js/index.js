@@ -1,7 +1,7 @@
 //Este código asume que las librerías de P5.js ya están cargadas.
 //Esta función se ejecuta una sola vez al inicio del script.
 
-let c = 'orchid';
+
 function setup() {   
     createCanvas(640, 480);   
 }
@@ -9,7 +9,7 @@ function setup() {
   function draw() {
     if (mouseIsPressed === true) {
       colorMode(RGB, 255);
-      c = color(cambiarColor);
+      let c = color('orchid');
       fill(c);
       ellipse(mouseX, mouseY, 10, 10);
     }
@@ -43,5 +43,5 @@ function erase() {
 }
 
 function cambiarColor(){
-  alert(lecturaR());
+  lecturaR();
 }

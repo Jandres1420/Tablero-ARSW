@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,9 +46,9 @@ public class WebSiteController {
     }
  
     @GetMapping("/index/color/r")
-    public String changingColorR() {
+    public ResponseEntity<String> changingColorR() {
         sessionManagement();
-        return Usuarios.getInstance().posicionColor(request.getSession(true).getId());
+        return new ResponseEntity<String>(Usuarios.getInstance().posicionColor(request.getSession(true).getId()),HttpStatus.OK);
     }
     
 
