@@ -1,11 +1,14 @@
 package drawing;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +21,9 @@ public class WebSiteController {
     private HttpServletRequest request;
 
     public static void main(String[] args) {
-        Color.getInstance();
+        Usuarios.getInstance();
         SpringApplication.run(WebSiteController.class, args);
-
+        
     }
 
     @GetMapping("/status")
@@ -35,12 +38,16 @@ public class WebSiteController {
     }
 
     public void sessionManagement() {
+        Usuarios.getInstance().setUsuario(request.getSession(true).getId());
         System.out.println(request.getSession(true).getId());
+        System.out.println("Esto son el numero de usuarios " + Usuarios.getInstance().getListaUsuarios().size());
     }
+ 
+    @GetMapping("/index/color/r")
+    public String changingColorR() {
+        sessionManagement();
+        return Usuarios.getInstance().posicionColor(request.getSession(true).getId());
+    }
+    
 
-    @GetMapping("/setname")
-    public String setName(@RequestParam(value = "name", defaultValue = "Anónimo") String name) {
-        request.getSession().setAttribute("name", name);
-        return String.format("Hello %s!", name);
-    }
 }
